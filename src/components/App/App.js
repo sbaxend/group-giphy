@@ -11,8 +11,9 @@ function App(props) {
           <Search />
         </Route>
         <Route exact path ='/favorite'>
-          <Favorite />
+          <Favorite />g
         </Route>
+
       </Router>
     </div>
   );

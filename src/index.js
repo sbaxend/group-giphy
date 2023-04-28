@@ -41,6 +41,9 @@ const storeInstance = createStore(
     combineReducers(
         {
             //reducers added here
+            // 1
+            // 2
+            // 3
         }
     ),
     applyMiddleware(sagaMiddleware, logger)

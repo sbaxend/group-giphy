@@ -1,6 +1,6 @@
 import React from 'react';
 import { HashRouter as Router, Route } from 'react-router-dom';
-import Favorite from './Favorite';
+import Favorite from '../Favorite';
 import Search from '../Search';
 function App(props) {
   return (

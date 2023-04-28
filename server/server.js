@@ -1,10 +1,14 @@
+require('dotenv').config()
+
+
 const express = require('express');
 const bodyParser = require('body-parser');
 
 const app = express();
 // App PORT set with production check
 const PORT = process.env.PORT || 5000;
-
+//adding a axios require
+const axios = require('axios')
 // Route includes
 const favoriteRouter = require('./routes/favorite.router');
 const categoryRouter = require('./routes/category.router');
@@ -19,6 +23,18 @@ app.use(express.static('build'));
 // Routes
 app.use('/api/favorite', favoriteRouter);
 app.use('/api/category', categoryRouter);
+
+app.get('/search', (req, res) => {
+  // ! API KEYS should only be used on the server
+  axios.get(`https://api.giphy.com/v1/gifs/search?api_key=${process.env.GIPHY_API_SEARCH_KEY}&q=&limit=25&offset=0&rating=g&lang=en`).then(
+      response => {
+          res.send(response.data);
+      }).catch(error => {
+          console.log(`Error in GET /random`, error);
+          res.sendStatus(500)
+      })
+  
+})
 
 // Listen
 app.listen(PORT, () => {

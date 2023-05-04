@@ -26,7 +26,8 @@ app.use('/api/category', categoryRouter);
 
 app.get('/search', (req, res) => {
   // ! API KEYS should only be used on the server
-  axios.get(`https://api.giphy.com/v1/gifs/search?api_key=${process.env.GIPHY_API_SEARCH_KEY}&q=&limit=25&offset=0&rating=g&lang=en`).then(
+  const searchWord = req.body
+  axios.get(`https://api.giphy.com/v1/gifs/search?api_key=${process.env.GIPHY_API_SEARCH_KEY}&q=${searchWord}&limit=25&offset=0&rating=g&lang=en`).then(
       response => {
           res.send(response.data);
       }).catch(error => {

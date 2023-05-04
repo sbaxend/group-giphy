@@ -15,6 +15,15 @@ import axios from 'axios';
 // Reducers
 
 // Reducer 1
+// Reducer to store results from Giphy API search
+const giphySearchResults = (state = [], action) => {
+    switch (action.type) {
+        case 'SET_SEARCH_RESULTS':
+            return action.payload;
+        default:
+            return state;
+    }
+}
 
 // Reducer 2
 
@@ -23,14 +32,24 @@ import axios from 'axios';
 // Sagas
 
 // Saga 1
+function* fetchFavorites() {
+    try {
+        const favorites = yield axios.get('/api/favorite');
+        yield put({ type: 'SET' })
+    } catch (error) {
+
+    }
+}
 
 // Saga 2
+// Saga to 
 
 // Saga 3
 
 // Root Saga
 function* rootSaga() {
     // yield takeEvery('DISPATCH_NAME', sagaName);
+    yield takeEvery('FETCH_FAVORITES', fetchFavorites); 
 }
 
 // Saga Middleware

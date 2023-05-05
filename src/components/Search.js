@@ -30,10 +30,6 @@ function Search () {
             <input type= 'text' onChange = {handleChange} ></input>
             <h5>{searchWord}</h5>
             <button onClick={submitSearch}>Search</button>
-            {giphySearchResults.length === 0 ? (
-                <h1>Loading</h1>
-            ) : (
-                
                 <ul>
                 {
                     giphySearchResults.map((giphy) => (
@@ -44,8 +40,6 @@ function Search () {
                     ))
                 }
                 </ul>
-            )
-            }
         </>
             
     )

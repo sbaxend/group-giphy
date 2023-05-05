@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 function Favorite () {
-    const [favorites, setFavorites] = useState([]);
+    const favorites = useSelector(store => store.giphySearchResults)
     const dispatch = useDispatch();
 
     useEffect(() => {

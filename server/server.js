@@ -24,11 +24,14 @@ app.use(express.static('build'));
 app.use('/api/favorite', favoriteRouter);
 app.use('/api/category', categoryRouter);
 
-app.get('/search', (req, res) => {
+app.get('/search/:id', (req, res) => {
   // ! API KEYS should only be used on the server
-  const searchWord = req.body
+  const searchWord = req.params.id;
+  console.log(searchWord);
+  // https://api.giphy.com/v1/gifs/search?api_key=KIBQYHBFzGktf1tcKsNK9e2uv6xhvMUn&q=turtle&limit=25&offset=0&rating=g&lang=en
   axios.get(`https://api.giphy.com/v1/gifs/search?api_key=${process.env.GIPHY_API_SEARCH_KEY}&q=${searchWord}&limit=25&offset=0&rating=g&lang=en`).then(
       response => {
+        console.log(response.data);
           res.send(response.data);
       }).catch(error => {
           console.log(`Error in GET /random`, error);

@@ -26,8 +26,19 @@ const giphySearchResults = (state = [], action) => {
 }
 
 // Reducer 2
-
+const giphyFavorites = (state = [], action) => {
+    if (action.type === 'SET_FAVORITES') {
+        return action.payload;
+    }
+    return state;
+} 
 // Reducer 3
+const searchWord = (state = '', action) => {
+    if (action.type === 'SET_SEARCH') {
+        return action.payload;
+    }
+    return state;
+}
 
 // Sagas
 
@@ -35,14 +46,27 @@ const giphySearchResults = (state = [], action) => {
 function* fetchFavorites() {
     try {
         const favorites = yield axios.get('/api/favorite');
-        yield put({ type: 'SET' })
+        yield put({ type: 'SET_FAVORITES', payload: favorites.data });
     } catch (error) {
-
+        console.log(`Error in GET${error}`);
+        alert('Something went wrong.');
     }
 }
 
 // Saga 2
-// Saga to 
+// Saga to get GIPHY search results
+function* fetchGiphySearch(action) {
+    console.log(action.payload)
+    try {
+        const searchWord = action.payload;
+        const results = yield axios.get(`/search/${searchWord}`); 
+        console.log('Get search results', results.data);
+        yield put({ type: 'SET_SEARCH_RESULTS', payload: results.data.data })
+    } catch (error) {
+        console.log(`Error in fetchGiphySearch ${error}`);
+        alert('Something went wrong.')
+    }
+}
 
 // Saga 3
 
@@ -50,6 +74,7 @@ function* fetchFavorites() {
 function* rootSaga() {
     // yield takeEvery('DISPATCH_NAME', sagaName);
     yield takeEvery('FETCH_FAVORITES', fetchFavorites); 
+    yield takeEvery('FETCH_SEARCH_RESULTS', fetchGiphySearch)
 }
 
 // Saga Middleware
@@ -61,7 +86,9 @@ const storeInstance = createStore(
         {
             //reducers added here
             // 1
-            // 2
+            giphySearchResults,
+            searchWord,
+            giphyFavorites,
             // 3
         }
     ),
